@@ -1,7 +1,7 @@
 <?php
-namespace app\home\model;
+namespace app\admin\model;
 use think\Model;
-class User extends Model
+class Trophy extends Model
 {
 	protected $resultSetType = 'collection';
 	 //自定义初始化

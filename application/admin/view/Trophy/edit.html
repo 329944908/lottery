@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>edit</title>
+</head>
+<body>
+	<form action="/admin/Trophy/doEdit" method="post" enctype="multipart/form-data">
+		名称: <input type="text" name="trophy_name" value="{$trophy_info['trophy_name']}"></br>
+		价格: <input type="text" name="trophy_price" value="{$trophy_info['trophy_price']}"></br>
+		中奖率: <input type="text" name="trophy_probability" value="{$trophy_info['trophy_probability']}"></br>
+		库存: <input type="text" name="trophy_stock" value="{$trophy_info['trophy_stock']}"></br>
+		<input type="file" name="trophy_img"></br>
+		<input type="hidden" name="trophy_id" value="{$trophy_info['id']}"></br>
+		<input type="submit" name="" value="提交">
+	</form>
+</body>
+</html>

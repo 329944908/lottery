@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>充值中心</title>
+</head>
+<body>
+	<form action="/home/User/doRecharge" method="get">
+		充值卡卡号：<input type="text" name="cardNumber"><br>
+		充值卡密码：<input type="text" name="cardPassword"><br>
+		<input type="hidden" name="user_id" value="{$user_id}">
+		<input type="submit" name="" value="充值">
+	</form>
+</body>
+</html>

@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <title>九宫格抽奖转盘</title>
@@ -12,30 +12,39 @@
         </style>
     </head>
     <body>
+        <?php if(isset($user_data)){ 
+            echo $user_data['name'];?>
+            &nbsp&nbsp&nbsp&nbsp<a href="{:url('/home/User/logout')}">注销</a>
+                    <p>剩余抽奖次数：<?php echo $times;?></p>
+        <?php }else{ ?>
+        <a href="{:url('/home/User/login')}">登录</a>&nbsp&nbsp&nbsp&nbsp<a href="{:url('/home/User/reg')}">注册</a>
+        <?php } ?>
+        <br>
+        <a href="/home/User/recharge?id=<?php echo $user_data['id']?>">充值中心</a>
         <div class="container">
             <div class="demo">
                 <div id="lottery">
                     <table border="0" cellpadding="0" cellspacing="0">
                         <tr>
-                            <td class="lottery-unit lottery-unit-0"><img src="__STATIC__/images/1.png"></td>
-                            <td class="lottery-unit lottery-unit-1"><img src="__STATIC__/images/2.png"></td>
-                            <td class="lottery-unit lottery-unit-2"><img src="__STATIC__/images/4.png"></td>
-                            <td class="lottery-unit lottery-unit-3"><img src="__STATIC__/images/3.png"></td>
+                            <td class="lottery-unit lottery-unit-0"><img src="<?php echo $images['0']?>"></td>
+                            <td class="lottery-unit lottery-unit-1"><img src="<?php echo $images['1']?>"></td>
+                            <td class="lottery-unit lottery-unit-2"><img src="<?php echo $images['2']?>"></td>
+                            <td class="lottery-unit lottery-unit-3"><img src="<?php echo $images['3']?>"></td>
                         </tr>
                         <tr>
-                            <td class="lottery-unit lottery-unit-11"><img src="__STATIC__/images/7.png"></td>
+                            <td class="lottery-unit lottery-unit-11"><img src="<?php echo $images['11']?>"></td>
                             <td colspan="2" rowspan="2"><a href="javascript:void(0);"></a></td>
-                            <td class="lottery-unit lottery-unit-4"><img src="__STATIC__/images/5.png"></td>
+                            <td class="lottery-unit lottery-unit-4"><img src="<?php echo $images['4']?>"></td>
                         </tr>
                         <tr>
-                            <td class="lottery-unit lottery-unit-10"><img src="__STATIC__/images/1.png"></td>
-                            <td class="lottery-unit lottery-unit-5"><img src="__STATIC__/images/6.png"></td>
+                            <td class="lottery-unit lottery-unit-10"><img src="<?php echo $images['10']?>"></td>
+                            <td class="lottery-unit lottery-unit-5"><img src="<?php echo $images['5']?>"></td>
                         </tr>
                         <tr>
-                            <td class="lottery-unit lottery-unit-9"><img src="__STATIC__/images/3.png"></td>
-                            <td class="lottery-unit lottery-unit-8"><img src="__STATIC__/images/6.png"></td>
-                            <td class="lottery-unit lottery-unit-7"><img src="__STATIC__/images/8.png"></td>
-                            <td class="lottery-unit lottery-unit-6"><img src="__STATIC__/images/7.png"></td>
+                            <td class="lottery-unit lottery-unit-9"><img src="<?php echo $images['9']?>"></td>
+                            <td class="lottery-unit lottery-unit-8"><img src="<?php echo $images['8']?>"></td>
+                            <td class="lottery-unit lottery-unit-7"><img src="<?php echo $images['7']?>"></td>
+                            <td class="lottery-unit lottery-unit-6"><img src="<?php echo $images['6']?>"></td>
                         </tr>
                     </table>
                 </div>
@@ -86,12 +95,12 @@
                 if (lottery.times > lottery.cycle + 10 && lottery.index == prize_site) {
                     var prize_id = $("#lottery").attr("prize_id");
                     var prize_name = $("#lottery").attr("prize_name");
-                    alert("前端中奖位置："+prize_site+"\n"+"中奖名称："+prize_name+"\n中奖id："+prize_id)
+                    alert("恭喜您获得：\n"+prize_name)
+                    location.href=location.href; 
                     clearTimeout(lottery.timer);
                     lottery.prize = -1;
                     lottery.times = 0;
                     click = false;
-
                 } else {
                     if (lottery.times < lottery.cycle) {
                         lottery.speed -= 10;
@@ -112,9 +121,7 @@
                 }
                 return false;
             }
-
             var click = false;
-
             $(function() {
                 lottery.init('lottery');
                 $("#lottery a").click(function() {
@@ -123,14 +130,26 @@
                     } else {
                         lottery.speed = 100;
                         $.post("/home/Index/chance", {uid: 1}, function(data) { //获取奖品，也可以在这里判断是否登陆状态
+
                             $("#lottery").attr("prize_site", data.prize_site);
                             $("#lottery").attr("prize_id", data.prize_id);
                             $("#lottery").attr("prize_name", data.prize_name);
-                            roll();
-                            click = true;
+                            if(data.is_login !=0){
+                                if(data.times != 0){
+                                    roll();
+                                    click = true;
+                                }else{
+                                    alert("您已经没有抽奖机会了，请充值！！");
+                                    click = false;
+                                }
+                            }else{
+                                alert("请登录");
+                                click = false;
+                            }
                             return false;
                         }, "json")
                     }
+                    
                 });
             })
         </script>

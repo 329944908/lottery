@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>奖品列表</title>
+	<style type="text/css">
+			table{margin: 0 auto;}
+			td{width: 100px;text-align: center;}
+			img{width: 100px;height: 40px}
+			li{display: inline-block;border: 1px solid #ccc;padding: 10px;}
+	</style>
+	<title></title>
+</head>
+<body>
+	<table border="1" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+ 				<td>id</td>
+ 				<td>奖品名称</td>
+ 				<td>中奖概率</td>
+ 				<td>库存</td>
+ 				<td>图片</td>
+ 				<td>操作</td>
+ 		</tr>
+		<?php  foreach ($trophy_lists as $key => $value) { ?>
+ 			<tr>
+ 				<td><?php echo $value['id']?></td>
+ 				<td><?php echo $value['trophy_name']?></td>
+ 				<td><?php echo $value['trophy_probability']?></td>
+ 				<td><?php echo $value['trophy_stock']?></td>
+ 				<td><img src="http://lottery.com/uploads/<?php echo $value['trophy_img']?>"></td>
+ 				<td><a href="/admin/trophy/edit?id=<?php echo $value['id']?>">edit</a></td>
+ 			</tr>
+		<?php } ?>
+	</table>
+</body>
+</html>

@@ -239,4 +239,5 @@ return [
     'view_replace_str'       => [
                  // '__PUBLIC__' => $basename . '/public',          
     ],
+    "ImageUrl" =>'http://lottery.com/public/uploads',
 ];

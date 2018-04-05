@@ -1,9 +1,8 @@
 <?php
-namespace app\home\model;
+namespace app\admin\model;
 use think\Model;
 class User extends Model
 {
-	protected $resultSetType = 'collection';
 	 //自定义初始化
     protected function initialize()
     {
