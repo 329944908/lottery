@@ -49,8 +49,22 @@ class Index extends Controller
 				$new_time = $times-1;
 				if($new_time<0){
 					$new_time = 0;
+				}
+				if($res['trophy_price']!=0){
+					$new_trophy_stock = $res['trophy_stock']-1;
+					$status1 = $trophy->where('id',$res['id'])->setField('trophy_stock', "{$new_trophy_stock}");
+					if($status1){
+						$order = model('order');
+						$order_data['user_id'] = $_SESSION['me']['id'];
+						$order_data['trophy_id'] = $res['id'];
+						$order_data['order_num'] = mt_rand(1000,9999).$order_data['user_id'].$order_data['trophy_id'].time();
+						$status3 = $order->insert($order_data);
+						if(!$status3){
+							$new_time = $new_time+1;
+						}
+					}
 				} 
-				$status = $user->where('id',$_SESSION['me']['id'])->setField('times', "{$new_time}");	
+				$status2 = $user->where('id',$_SESSION['me']['id'])->setField('times', "{$new_time}");	
     		}else{
     			$data['times'] = 0;
     		}

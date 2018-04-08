@@ -8,7 +8,10 @@
             #lottery table td{width:142px;height:142px;text-align:center;vertical-align:middle;font-size:24px;color:#333;font-index:-999}
             #lottery table td a{width:284px;height:284px;line-height:150px;display:block;text-decoration:none;}
             #lottery table td.active{background-color:#ea0000;}
-
+            img{
+                width: 142px;
+                height: 142px;
+            }
         </style>
     </head>
     <body>
@@ -16,11 +19,13 @@
             echo $user_data['name'];?>
             &nbsp&nbsp&nbsp&nbsp<a href="{:url('/home/User/logout')}">注销</a>
                     <p>剩余抽奖次数：<?php echo $times;?></p>
+                            <br>
+        <a href="/home/User/recharge?id=<?php echo $user_data['id']?>">充值中心</a>
+                <a href="/home/Order/lists?id=<?php echo $user_data['id']?>">我的奖品</a>
         <?php }else{ ?>
         <a href="{:url('/home/User/login')}">登录</a>&nbsp&nbsp&nbsp&nbsp<a href="{:url('/home/User/reg')}">注册</a>
         <?php } ?>
-        <br>
-        <a href="/home/User/recharge?id=<?php echo $user_data['id']?>">充值中心</a>
+
         <div class="container">
             <div class="demo">
                 <div id="lottery">

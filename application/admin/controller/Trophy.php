@@ -3,8 +3,7 @@ namespace app\admin\controller;
 use think\Controller;
 class Trophy extends Controller
 {
-    public function lists()
-    {
+    public function lists(){
     	$trophy = model('trophy');
 		$trophy_lists = $trophy->select()->toArray();
  		$this->assign('trophy_lists',$trophy_lists);
@@ -33,7 +32,7 @@ class Trophy extends Controller
 	    	if($res){
 	    		$this->success('更新成功','/admin/Trophy/lists');
 	    	}else{
-	    		$this->success('更新失败','/admin/Trophy/lists');
+	    		$this->error('更新失败','/admin/Trophy/lists');
 	    	}
     	}	
     }
